@@ -2,8 +2,8 @@ const Admin = require('../models/admin.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+const JWT_SECRET = process.env.JWT_SECRET || 'ASFzgasg123FASvvzZasdoV';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'FasdFGga12GAsxz';
 
 class AdminService {
     async create(adminData) {
