@@ -1,11 +1,10 @@
 const Router = require('express').Router;
 const productService = require('../services/product.service');
-const upload = require('../utils/multerConfig');
 const router = new Router();
 
-router.post('/', upload.single('img'), async (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const product = await productService.create(req.body, req.file);
+        const product = await productService.create(req.body);
         res.json(product);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -30,9 +29,9 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', upload.single('img'), async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        const product = await productService.update(req.params.id, req.body, req.file);
+        const product = await productService.update(req.params.id, req.body);
         res.json(product);
     } catch (error) {
         res.status(500).json({ message: error.message });

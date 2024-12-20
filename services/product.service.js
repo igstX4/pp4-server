@@ -1,10 +1,8 @@
 const Product = require('../models/product.model');
 const Category = require('../models/category.model');
-const fs = require('fs').promises;
-const path = require('path');
 
 class ProductService {
-    async create(productData, file) {
+    async create(productData) {
         try {
             if (productData.category) {
                 const category = await Category.findById(productData.category);
@@ -17,15 +15,10 @@ class ProductService {
                     productData.categoryName = 'Общая категория';
                 }
             }
-
-            productData.img = file.filename;
             
             const product = new Product(productData);
             return await product.save();
         } catch (error) {
-            if (file) {
-                await fs.unlink(path.join('uploads/products', file.filename));
-            }
             throw error;
         }
     }
@@ -38,7 +31,7 @@ class ProductService {
         return await Product.findById(id).populate('category', 'name');
     }
 
-    async update(id, productData, file) {
+    async update(id, productData) {
         try {
             if (productData.category) {
                 const category = await Category.findById(productData.category);
@@ -47,28 +40,14 @@ class ProductService {
                 }
             }
 
-            if (file) {
-                const oldProduct = await Product.findById(id);
-                if (oldProduct.img) {
-                    await fs.unlink(path.join('uploads/products', oldProduct.img));
-                }
-                productData.img = file.filename;
-            }
-
             return await Product.findByIdAndUpdate(id, productData, { new: true });
         } catch (error) {
-            if (file) {
-                await fs.unlink(path.join('uploads/products', file.filename));
-            }
             throw error;
         }
     }
 
     async delete(id) {
         const product = await Product.findById(id);
-        if (product.img) {
-            await fs.unlink(path.join('uploads/products', product.img));
-        }
         return await Product.findByIdAndDelete(id);
     }
 
