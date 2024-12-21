@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 
 async function start() {
     try {
-        await mongoose.connect('mongodb+srv://user123:gBaURWBwWQtyQ66R@cluster0.krpru.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+        await mongoose.connect('mongodb+srv://cyberbiteu:4nr4nuFyinQ466r9@cluster0.gxzff.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
         app.listen(PORT, () => console.log(`Сервер запущен на порту ${PORT}`));
     } catch (error) {
         console.log('Ошибка при запуске сервера:', error);
